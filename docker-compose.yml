@@ -11,7 +11,7 @@ services:
       # DATABASE_USER: server
       # DATABASE_PASS: serverPA2423423
       # DATABASE_URI:  mongodb://localhost:27017
-      MONGO_URL: root:pass12345@localhost
+      MONGO_URL: mongodb://mongodb:27017/chat
     networks:
       - server-network
     ports:
@@ -28,8 +28,8 @@ services:
       - server-network
     ports:
       - '27017:27017'
-    environment:
-    - MONGO_INITDB_ROOT_USERNAME=root
-    - MONGO_INITDB_ROOT_PASSWORD=pass12345
+    # environment:
+    # - MONGO_INITDB_ROOT_USERNAME=root
+    # - MONGO_INITDB_ROOT_PASSWORD=pass12345
 networks:
   server-network:

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat App</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+  </head>
+  <body>
+    <div id="username-container">
+      <input id="username" type="text" placeholder="Enter your username" />
+      <button onclick="enterChat()">Enter Chat</button>
+    </div>
+    <div id="chat-container" style="display: none">
+      <input id="message" type="text" placeholder="Type your message here..." />
+      <button onclick="sendMessage()">Send</button>
+      <button onclick="getUserMessages()">Get My Messages</button>
+      <div id="messages"></div>
+    </div>
+
+    <script>
+      let socket;
+      let username;
+
+      function enterChat() {
+        const usernameInput = document.getElementById('username');
+        username = usernameInput.value.trim();
+
+        if (username) {
+          socket = io('http://localhost:3000');
+          document.getElementById('username-container').style.display = 'none';
+          document.getElementById('chat-container').style.display = 'block';
+          socket.on('connect', function () {
+            console.log('Connected');
+            socket.emit('connectUser', { name: username });
+          });
+          socket.on('addmessage', (data) => {
+            const messagesDiv = document.getElementById('messages');
+            messagesDiv.innerHTML += `<p><strong>${data.createMessageDto.username}:</strong> ${data.createMessageDto.message}</p>`;
+          });
+
+          socket.on('connectUser', (notification) => {
+          const messagesDiv = document.getElementById('messages');
+          console.log(notification);
+          messagesDiv.innerHTML += `<p><em>${notification.createChatDto.name}</em> connected</p>`;
+        });
+
+          socket.on('userMessages', (messages) => {
+            const messagesDiv = document.getElementById('messages');
+            messagesDiv.innerHTML = messages
+              .map(
+                (msg) =>
+                  `<p><strong>${msg.user.username}:</strong> ${msg.message}</p>`,
+              )
+              .join('');
+          });
+        } else {
+          alert('Please enter a username.');
+        }
+      }
+
+      function sendMessage() {
+        const messageInput = document.getElementById('message');
+        const message = messageInput.value.trim();
+
+        if (message) {
+          socket.emit('addmessage', { username, message });
+          messageInput.value = '';
+        }
+      }
+
+      function getUserMessages() {
+        socket.emit('getUserMessages', username);
+      }
+    </script>
+  </body>
+</html>

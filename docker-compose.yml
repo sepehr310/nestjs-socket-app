@@ -2,7 +2,7 @@ version: '3.8'
 ervices:
   # app service for your backend
   app:
-    container_name: backend
+    container_name: backend-socket
     build:
       context: ./
       dockerfile: Dockerfile

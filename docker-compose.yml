@@ -1,5 +1,5 @@
 version: '3.8'
-ervices:
+services:
   # app service for your backend
   app:
     container_name: backend-socket

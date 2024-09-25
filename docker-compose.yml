@@ -12,7 +12,7 @@ ervices:
       DATABASE_PASS: serverPA2423423
       DATABASE_URI:  mongodb://database:27017
     ports:
-      - '4000:4000'
+      - '3000:3000'
     depends_on:
       - database
 

@@ -10,7 +10,7 @@ services:
       DATABASE_NAME: chatDB
       DATABASE_USER: server
       DATABASE_PASS: serverPA2423423
-      DATABASE_URI:  mongodb://database:27017
+      DATABASE_URI:  mongodb://localhost:27017
     networks:
       - server-network
     ports:

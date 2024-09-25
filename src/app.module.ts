@@ -14,17 +14,7 @@ import { ConfigModule } from '@nestjs/config';
       serveRoot: '/public',
       rootPath: join(__dirname, '..', 'public'),
     }),
-    MongooseModule.forRoot(
-      process.env.DATABASE_URI,
-      {
-        dbName: process.env.DATABASE_NAME,
-        auth: {
-          username: process.env.DATABASE_USER,
-          password: process.env.DATABASE_PASS,
-        },
-      },
-      //'mongodb+srv://w3sepehr79:hbv4hCmMeoJb9wSW@chat.wds8y.mongodb.net/?retryWrites=true&w=majority&appName=chat',
-    ),
+    MongooseModule.forRoot(process.env.MONGODB_URL),
     ChatModule,
   ],
   controllers: [AppController],

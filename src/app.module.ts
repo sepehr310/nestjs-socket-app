@@ -14,7 +14,7 @@ import { ConfigModule } from '@nestjs/config';
       serveRoot: '/public',
       rootPath: join(__dirname, '..', 'public'),
     }),
-    MongooseModule.forRoot(process.env.MONGODB_URL),
+    MongooseModule.forRoot(String(process.env.MONGODB_URL)),
     ChatModule,
   ],
   controllers: [AppController],

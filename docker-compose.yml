@@ -28,7 +28,7 @@ services:
     ports:
       - '27017:27017'
     environment:
-      MONGO_INITDB_ROOT_USERNAME=chatDB
-      MONGO_INITDB_ROOT_PASSWORD=serverPA2423423
+    - MONGO_INITDB_ROOT_USERNAME=chatDB
+    - MONGO_INITDB_ROOT_PASSWORD=serverPA2423423
 networks:
   server-network:
